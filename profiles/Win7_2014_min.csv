@@ -1,0 +1,400 @@
+CVE,Name
+,HTTP Server Type and Version
+,Nessus Server Detection
+,Nessus Server Detection
+,Windows NetBIOS / SMB Remote Host Information Disclosure
+,Microsoft Windows SMB Log In Possible
+,Microsoft Windows SMB Shares Enumeration
+CVE-1999-0519,Microsoft Windows SMB Shares Access
+CVE-1999-0520,Microsoft Windows SMB Shares Access
+,Microsoft Windows SMB Registry Remotely Accessible
+,Microsoft Windows SMB Service Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,DCE Services Enumeration
+,Microsoft Windows SMB NativeLanManager Remote System Information Disclosure
+CVE-2000-1200,Microsoft Windows SMB LsaQueryInformationPolicy Function SID Enumeration
+,SMB Use Host SID to Enumerate Local Users
+,SSL Certificate Information
+,SSL Certificate Information
+,SSL Certificate Information
+,Microsoft Windows 'Administrators' Group User List
+,Microsoft Windows - Local Users Information : Disabled Accounts
+,Microsoft Windows - Local Users Information : Never Changed Passwords
+,Microsoft Windows - Local Users Information : User Has Never Logged In
+,Microsoft Windows - Local Users Information : Passwords Never Expire
+,Windows Terminal Services Enabled
+,Microsoft Windows SMB Service Detection
+,Microsoft Windows SMB Registry : Winlogon Cached Password Weakness
+,OS Identification
+,Host Fully Qualified Domain Name (FQDN) Resolution
+,Authenticated Check : OS Name and Installed Package Enumeration
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,netstat portscanner (SSH)
+,Microsoft Windows SMB : Obtains the Password Policy
+CVE-2005-1794,Microsoft Windows Remote Desktop Protocol Server Man-in-the-Middle Weakness
+,Nessus Scan Information
+,Microsoft Windows Installed Software Enumeration (credentialed check)
+,Adobe Reader Detection
+,Mozilla Foundation Application Detection
+,SSL Cipher Suites Supported
+,SSL Cipher Suites Supported
+,SSL Cipher Suites Supported
+,Service Detection
+,Service Detection
+,Service Detection
+,Service Detection
+,HyperText Transfer Protocol (HTTP) Information
+,Windows Management Instrumentation (WMI) Available
+,Computer Manufacturer Information (WMI)
+,Network Interfaces Enumeration (WMI)
+,Flash Player Detection
+,Terminal Services Encryption Level is not FIPS-140 Compliant
+,Oracle Java Runtime Environment (JRE) Detection
+,BIOS Version (WMI)
+,Google Chrome Detection (Windows)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+,Microsoft Windows Remote Listeners Enumeration (WMI)
+CVE-2004-2761,SSL Certificate Signed Using Weak Hashing Algorithm
+,SSL Service Requests Client Certificate
+,Microsoft Windows Summary of Missing Patches
+,Microsoft Windows Security Center Settings
+,Microsoft Windows SMB Last Logged On User Disclosure
+,Mozilla Foundation Unsupported Application Detection
+,Microsoft Windows NTLMSSP Authentication Request Remote Network Name Disclosure
+,SSL Medium Strength Cipher Suites Supported
+,SSL Medium Strength Cipher Suites Supported
+,SMB Registry : Start the Registry Service during the scan (WMI)
+,SMB Registry : Stop the Registry Service after the scan (WMI)
+,Microsoft Windows SMB Service Config Enumeration
+,WMI Windows Feature Enumeration
+,WMI Anti-spyware Enumeration
+,Reachable IPv6 address
+,Common Platform Enumeration (CPE)
+,Windows ComputerSystemProduct Enumeration (WMI)
+,MS KB2269637: Insecure Library Loading Could Allow Remote Code Execution
+,Microsoft Windows SMB Registry : OS Version and Processor Architecture
+,WMI Encryptable Volume Enumeration
+,SSL Certificate Cannot Be Trusted
+,SSL Certificate Cannot Be Trusted
+,SSL Certificate Cannot Be Trusted
+,Microsoft .NET Framework Detection
+,SSL Session Resume Supported
+,Microsoft Windows SMB Registry : Win 7 / Server 2008 R2 Service Pack Detection
+,Device Type
+,Device Hostname
+,Firewall Rule Enumeration
+,Time of Last System Startup
+,Microsoft Revoked Digital Certificates Enumeration
+,SSL / TLS Versions Supported
+,SSL / TLS Versions Supported
+,SSL / TLS Versions Supported
+,Microsoft Patch Bulletin Feasibility Check
+,SSL Perfect Forward Secrecy Cipher Suites Supported
+,SSL Self-Signed Certificate
+,SMB Signing Disabled
+,Terminal Services Encryption Level is Medium or Low
+,Windows DNS Server Enumeration
+,Microsoft Windows Startup Software Enumeration
+,Terminal Services Doesn't Use Network Level Authentication (NLA) Only
+,Netstat Active Connections
+,Adobe Flash Player Unsupported Version Detection
+,MS KB2719662: Vulnerabilities in Gadgets Could Allow Remote Code Execution
+,Microsoft Windows SMB Share Permissions Enumeration
+,SMB QuickFixEngineering (QFE) Enumeration
+,Microsoft Windows Mounted Devices
+,Windows Product Key Retrieval
+,Netstat Connection Information
+,Terminal Services Use SSL/TLS
+,Oracle Java JRE Universally Enabled
+,Oracle Java JRE Enabled (Internet Explorer)
+CVE-2013-2566,SSL RC4 Cipher Suites Supported (Bar Mitzvah)
+CVE-2013-2566,SSL RC4 Cipher Suites Supported (Bar Mitzvah)
+CVE-2015-2808,SSL RC4 Cipher Suites Supported (Bar Mitzvah)
+CVE-2015-2808,SSL RC4 Cipher Suites Supported (Bar Mitzvah)
+,RDP Screenshot
+,Patch Report
+,Microsoft Malicious Software Removal Tool Installed
+,Adobe Reader Enabled in Browser (Internet Explorer)
+,JavaScript Enabled in Adobe Reader
+,Microsoft Windows Process Information
+,Microsoft Windows Process Module Information
+,SSL Cipher Block Chaining Cipher Suites Supported
+,SSL Cipher Block Chaining Cipher Suites Supported
+,SSL Cipher Block Chaining Cipher Suites Supported
+,Enumerate Local Group Memberships
+,Microsoft Internet Explorer Version Detection
+,Windows Display Driver Enumeration
+,Enumerate Local Users
+,Microsoft .NET Framework Unsupported
+,MS KB2871997: Update to Improve Credentials Protection and Management
+CVE-2014-3566,MS KB3009008: Vulnerability in SSL 3.0 Could Allow Information Disclosure (POODLE)
+CVE-2015-0004,MS15-003: Vulnerability in Windows User Profile Service Could Allow Elevation of Privilege (3021674)
+CVE-2015-0016,MS15-004: Vulnerability in Windows Components Could Allow Elevation of Privilege (3025421)
+CVE-2015-0006,MS15-005: Vulnerability in Network Location Awareness Service Could Allow Security Feature Bypass (3022777)
+CVE-2015-0009,MS15-014: Vulnerability in Group Policy Could Allow Security Feature Bypass (3004361)
+,MS KB3033929: Availability of SHA-2 Code Signing Support for Windows 7 and Windows Server 2008 R2
+CVE-2015-0084,MS15-028: Vulnerability in Windows Task Scheduler Could Allow Security Feature Bypass (3030377)
+CVE-2015-0076,MS15-029: Vulnerability in Windows Photo Decoder Component Could Allow Information Disclosure (3035126)
+CVE-2015-1635,MS15-034: Vulnerability in HTTP.sys Could Allow Remote Code Execution (3042553)
+CVE-2015-1648,MS15-041: Vulnerability in .NET Framework Could Allow Information Disclosure (3048010)
+CVE-2015-0098,MS15-037: Vulnerability in Windows Task Scheduler Could Allow Elevation of Privilege (3046269)
+CVE-2015-1702,MS15-050: Vulnerability in Service Control Manager Could Allow Elevation of Privilege (3055642)
+,MS KB3042058: Update to Default Cipher Suite Priority Order
+CVE-2015-1676,MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191)
+CVE-2015-1677,MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191)
+CVE-2015-1678,MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191)
+CVE-2015-1679,MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191)
+CVE-2015-1680,MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191)
+CVE-2015-1701,MS15-051: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Elevation of Privilege (3057191)
+CVE-2015-1756,MS15-060: Vulnerability in Microsoft Common Controls Could Allow Remote Code Execution (3059317)
+CVE-2015-1758,MS15-063: Vulnerability in Windows Kernel Could Allow Elevation of Privilege (3063858)
+,HSTS Missing From HTTPS Server
+CVE-2015-2418,MS KB3074162: Vulnerability in Microsoft Malicious Software Removal Tool Could Allow Elevation of Privilege
+,MS KB3057154: Update to harden use of DES encryption (3057154)
+CVE-2015-2428,MS15-090: Vulnerabilities in Microsoft Windows Could Allow Elevation of Privilege (3060716)
+CVE-2015-2429,MS15-090: Vulnerabilities in Microsoft Windows Could Allow Elevation of Privilege (3060716)
+CVE-2015-2430,MS15-090: Vulnerabilities in Microsoft Windows Could Allow Elevation of Privilege (3060716)
+CVE-2015-2476,MS15-089: Vulnerability in WebDAV Could Allow Information Disclosure (3076949)
+CVE-2015-1769,MS15-085: Vulnerability in Mount Manager Could Allow Elevation of Privilege (3082487)
+CVE-2015-2472,MS15-082: Vulnerability in RDP Could Allow Remote Code Execution (3080348)
+CVE-2015-2473,MS15-082: Vulnerability in RDP Could Allow Remote Code Execution (3080348)
+CVE-2015-2434,MS15-084: Vulnerabilities in XML Core Services Could Allow Information Disclosure (3080129)
+CVE-2015-2440,MS15-084: Vulnerabilities in XML Core Services Could Allow Information Disclosure (3080129)
+CVE-2015-2471,MS15-084: Vulnerabilities in XML Core Services Could Allow Information Disclosure (3080129)
+CVE-2015-2524,MS15-102: Vulnerabilities in Windows Task Management Could Allow Elevation of Privilege (3089657)
+CVE-2015-2525,MS15-102: Vulnerabilities in Windows Task Management Could Allow Elevation of Privilege (3089657)
+CVE-2015-2528,MS15-102: Vulnerabilities in Windows Task Management Could Allow Elevation of Privilege (3089657)
+CVE-2015-2504,MS15-101: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege (3089662)
+CVE-2015-2526,MS15-101: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege (3089662)
+,MS KB3083992: Update to Improve AppLocker Publisher Rule Enforcement
+,MS KB3097966: Inadvertently Disclosed Digital Certificates Could Allow Spoofing
+CVE-2015-2515,MS15-109: Security Update for Windows Shell to Address Remote Code Execution (3096443)
+CVE-2015-2548,MS15-109: Security Update for Windows Shell to Address Remote Code Execution (3096443)
+CVE-2015-6098,MS15-117: Security Update for NDIS to Address Elevation of Privilege (3101722)
+CVE-2015-6096,MS15-118: Security Update for .NET Framework to Address Elevation of Privilege (3104507)
+CVE-2015-6099,MS15-118: Security Update for .NET Framework to Address Elevation of Privilege (3104507)
+CVE-2015-6115,MS15-118: Security Update for .NET Framework to Address Elevation of Privilege (3104507)
+CVE-2015-2478,MS15-119: Security Update for Winsock to Address Elevation of Privilege (3104521)
+CVE-2015-6130,MS15-130: Security Update for Microsoft Uniscribe to Address Remote Code Execution (3108670)
+CVE-2015-6128,MS15-132: Security Update for Microsoft Windows to Address Remote Code Execution (3116162)
+CVE-2015-6132,MS15-132: Security Update for Microsoft Windows to Address Remote Code Execution (3116162)
+CVE-2015-6133,MS15-132: Security Update for Microsoft Windows to Address Remote Code Execution (3116162)
+CVE-2015-6126,MS15-133: Security Update for Windows PGM to Address Elevation of Privilege (3116130)
+CVE-2015-6171,MS15-135: Security Update for Windows Kernel-Mode Drivers to Address Elevation of Privilege (3119075)
+CVE-2015-6173,MS15-135: Security Update for Windows Kernel-Mode Drivers to Address Elevation of Privilege (3119075)
+CVE-2015-6174,MS15-135: Security Update for Windows Kernel-Mode Drivers to Address Elevation of Privilege (3119075)
+CVE-2015-6175,MS15-135: Security Update for Windows Kernel-Mode Drivers to Address Elevation of Privilege (3119075)
+,MS KB3123479: Deprecation of SHA-1 Hashing Algorithm for Microsoft Root Certificate Program
+,MS KB3118753: Update for ActiveX Kill Bits
+CVE-2016-0038,MS16-013: Security Update for Windows Journal to Address Remote Code Execution (3134811)
+CVE-2016-0040,MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution (3134228)
+CVE-2016-0041,MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution (3134228)
+CVE-2016-0042,MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution (3134228)
+CVE-2016-0044,MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution (3134228)
+CVE-2016-0049,MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution (3134228)
+CVE-2016-0033,MS16-019: Security Update for .NET Framework to Address Denial of Service (3137893)
+CVE-2016-0047,MS16-019: Security Update for .NET Framework to Address Denial of Service (3137893)
+CVE-2016-0098,MS16-027: Security Update for Windows Media to Address Remote Code Execution (3143146)
+CVE-2016-0101,MS16-027: Security Update for Windows Media to Address Remote Code Execution (3143146)
+CVE-2016-0091,MS16-030: Security Update for Windows OLE to Address Remote Code Execution (3143136)
+CVE-2016-0092,MS16-030: Security Update for Windows OLE to Address Remote Code Execution (3143136)
+CVE-2016-0099,MS16-032: Security Update for Secondary Logon to Address Elevation of Privilege (3143141)
+CVE-2016-0133,MS16-033: Security Update for Windows USB Mass Storage Class Driver to Address Elevation of Privilege (3143142)
+CVE-2016-0147,MS16-040: Security Update for Microsoft XML Core Services (3148541)
+CVE-2016-0153,MS16-044: Security Update for Windows OLE (3146706)
+CVE-2016-0128,MS16-047: Security Update for SAM and LSAD Remote Protocols (3148527) (Badlock)
+CVE-2016-0128,MS16-047: Security Update for SAM and LSAD Remote Protocols (3148527) (Badlock) (uncredentialed check)
+,MS KB3152550: Update to Improve Wireless Mouse Input Filtering
+CVE-2016-0182,MS16-056: Security Update for Windows Journal (3156761)
+CVE-2016-0149,MS16-065: Security Update for .NET Framework (3156757)
+CVE-2016-3223,MS16-072: Security Update for Group Policy (3163622)
+CVE-2016-3225,MS16-075: Security Update for Windows SMB Server (3164038)
+CVE-2016-3213,MS16-077: Security Update for WPAD (3165191)
+CVE-2016-3236,MS16-077: Security Update for WPAD (3165191)
+CVE-2016-3299,MS16-077: Security Update for WPAD (3165191)
+CVE-2016-3230,MS16-082: Security Update for Microsoft Windows Search Component (3165270)
+CVE-2016-3238,MS16-087: Security Update for Windows Print Spooler (3170005)
+CVE-2016-3239,MS16-087: Security Update for Windows Print Spooler (3170005)
+CVE-2016-3255,MS16-091: Security Update for .NET Framework (3170048)
+CVE-2016-3348,MS16-106: Security Update for Microsoft Graphics Component (3185848)
+CVE-2016-3349,MS16-106: Security Update for Microsoft Graphics Component (3185848)
+CVE-2016-3354,MS16-106: Security Update for Microsoft Graphics Component (3185848)
+CVE-2016-3355,MS16-106: Security Update for Microsoft Graphics Component (3185848)
+CVE-2016-3356,MS16-106: Security Update for Microsoft Graphics Component (3185848)
+CVE-2016-3345,MS16-114: Security Update for Windows SMBv1 Server (3185879)
+CVE-2016-3298,MS16-126: Security Update for Microsoft Internet Messaging API (3196067)
+CVE-2016-3266,MS16-123: Security Update for Windows Kernel-Mode Drivers (3192892)
+CVE-2016-3341,MS16-123: Security Update for Windows Kernel-Mode Drivers (3192892)
+CVE-2016-3376,MS16-123: Security Update for Windows Kernel-Mode Drivers (3192892)
+CVE-2016-7185,MS16-123: Security Update for Windows Kernel-Mode Drivers (3192892)
+CVE-2016-7191,MS16-123: Security Update for Windows Kernel-Mode Drivers (3192892)
+CVE-2016-0070,MS16-124: Security Update for Windows Registry (3193227)
+CVE-2016-0073,MS16-124: Security Update for Windows Registry (3193227)
+CVE-2016-0075,MS16-124: Security Update for Windows Registry (3193227)
+CVE-2016-0079,MS16-124: Security Update for Windows Registry (3193227)
+CVE-2016-3209,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-3262,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-3263,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-3270,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-3393,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-3396,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-7182,MS16-120: Security Update for Microsoft Graphics Component (3192884)
+CVE-2016-2183,SSL 64-bit Block Size Cipher Suites Supported (SWEET32)
+CVE-2016-2183,SSL 64-bit Block Size Cipher Suites Supported (SWEET32)
+CVE-2016-6329,SSL 64-bit Block Size Cipher Suites Supported (SWEET32)
+CVE-2016-6329,SSL 64-bit Block Size Cipher Suites Supported (SWEET32)
+CVE-2016-7212,MS16-130: Security Update for Microsoft Windows (3199172)
+CVE-2016-7221,MS16-130: Security Update for Microsoft Windows (3199172)
+CVE-2016-7222,MS16-130: Security Update for Microsoft Windows (3199172)
+CVE-2016-7248,MS16-131: Security Update for Microsoft Video Control (3199151)
+CVE-2016-7205,MS16-132: Security Update for Microsoft Graphics Component (3199120)
+CVE-2016-7210,MS16-132: Security Update for Microsoft Graphics Component (3199120)
+CVE-2016-7217,MS16-132: Security Update for Microsoft Graphics Component (3199120)
+CVE-2016-7256,MS16-132: Security Update for Microsoft Graphics Component (3199120)
+CVE-2016-0026,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3332,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3333,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3334,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3335,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3338,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3340,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3342,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-3343,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-7184,MS16-134: Security Update for Common Log File System Driver (3193706)
+CVE-2016-7216,MS16-139: Security Update for Windows Kernel (3199720)
+CVE-2016-7195,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7196,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7198,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7199,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7227,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7239,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7241,MS16-142: Cumulative Security Update for Internet Explorer (3198467)
+CVE-2016-7202,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7278,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7279,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7281,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7282,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7283,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7284,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7287,MS16-144: Cumulative Security Update for Internet Explorer (3204059)
+CVE-2016-7257,MS16-146: Security Update for Microsoft Graphics Component (3204066)
+CVE-2016-7272,MS16-146: Security Update for Microsoft Graphics Component (3204066)
+CVE-2016-7273,MS16-146: Security Update for Microsoft Graphics Component (3204066)
+CVE-2016-7274,MS16-147: Security Update for Microsoft Uniscribe (3204063)
+CVE-2016-7259,MS16-151: Security Update for Windows Kernel-Mode Drivers (3205651)
+CVE-2016-7260,MS16-151: Security Update for Windows Kernel-Mode Drivers (3205651)
+CVE-2016-7295,MS16-153: Security Update for Common Log File System Driver (3207328)
+CVE-2016-7270,MS16-155: Security Update for .NET Framework (3205640)
+CVE-2016-7219,MS16-149: Security Update for Microsoft Windows (3205655)
+CVE-2016-7292,MS16-149: Security Update for Microsoft Windows (3205655)
+CVE-2017-0004,MS17-004: Security Update for Local Security Authority Subsystem Service (3216771)
+,Chrome Browser Extension Enumeration
+,Firefox Browser Extension Enumeration
+CVE-2016-2183,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2016-5546,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2016-5547,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2016-5548,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2016-5549,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2016-5552,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2016-8328,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3231,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3241,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3252,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3253,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3259,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3260,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3261,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3262,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3272,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-3289,Oracle Java SE Multiple Vulnerabilities (January 2017 CPU) (SWEET32)
+CVE-2017-5373,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5374,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5375,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5376,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5377,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5378,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5379,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5380,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5381,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5382,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5383,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5384,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5385,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5386,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5387,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5388,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5389,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5390,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5391,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5393,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+CVE-2017-5396,Mozilla Firefox < 51.0 Multiple Vulnerabilities
+,Server Message Block (SMB) Protocol Version 1 Unspecified RCE (uncredentialed check)
+,Server Message Block (SMB) Protocol Version 1 Unspecified RCE
+CVE-2017-2982,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2984,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2985,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2986,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2987,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2988,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2990,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2991,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2992,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2993,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2994,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2995,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
+CVE-2017-2996,Adobe Flash Player <= 24.0.0.194 Multiple Vulnerabilities (APSB17-04)
