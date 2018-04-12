@@ -392,6 +392,7 @@ else:
             edge_list.extend(host.get_outgoing())
         print >> w, len(edge_list)
 
+        best_prop = 1
         while(best_prop > 0.05):
             best_edge = edge_list[0]
             best_prop = 1

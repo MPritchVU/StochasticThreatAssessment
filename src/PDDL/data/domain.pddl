@@ -1,0 +1,5 @@
+(define (domain attack_planning)
+	(:requirements :strips :typing)
+	(:types)
+	(:constants)
+	(:predicates))
