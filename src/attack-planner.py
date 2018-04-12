@@ -278,7 +278,7 @@ def generate_domain():
         print >> f, define_
 
 def generate_problem_instance():
-    problem = StringIO()
+    problem_string = StringIO()
 
     ###############################################################################
     ## Problem - Init
