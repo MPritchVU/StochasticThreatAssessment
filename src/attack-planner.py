@@ -55,10 +55,10 @@ DOMAIN_FILE = os.path.join(FILE_DIR, 'PDDL', 'data', 'domain.pddl')
 PROBLEM_FILE = os.path.join(FILE_DIR, 'PDDL', 'data', 'problem.pddl')
 OUTPUT_FILE = os.path.join(FILE_DIR, 'output' + MARKER + '.csv')
 
-WIN_DESK_PATH = os.path.join(FILE_DIR, '..', 'PROFILES', 'Win7_2014_min.csv')
-LIN_DESK_PATH = os.path.join(FILE_DIR, '..', 'PROFILES', 'Ubuntu_2014.csv')
-WIN_SERV_PATH = os.path.join(FILE_DIR, '..', 'PROFILES', 'WinServer2012.csv')
-LIN_SERV_PATH = os.path.join(FILE_DIR, '..', 'PROFILES', 'Ubuntu_Server_2014.csv')
+WIN_DESK_PATH = os.path.join(FILE_DIR, '..', 'profiles', 'Win7_2014_min.csv')
+LIN_DESK_PATH = os.path.join(FILE_DIR, '..', 'profiles', 'Ubuntu_2014.csv')
+WIN_SERV_PATH = os.path.join(FILE_DIR, '..', 'profiles', 'WinServer2012.csv')
+LIN_SERV_PATH = os.path.join(FILE_DIR, '..', 'profiles', 'Ubuntu_Server_2014.csv')
 
 
 ###############################################################################
