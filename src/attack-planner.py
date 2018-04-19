@@ -387,15 +387,15 @@ if TYPE == 'EVAL':
 elif TYPE == 'OPT-EDGE':
     hosts = host_gen.get_host_dict()
     with open(OUTPUT_FILE, 'a') as w:
-        print >> w, ','.join([str(EVALUATION_TRIALS), str(HOST_NUM),
-                              str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']),
-                              str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])])
+        w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
+                          str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
+                          str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])]))
         
         edge_list = []
         for host in host_gen.get_hosts():
             if host.type not in ['SERVER', 'GATEWAY']:
                 edge_list.extend(host.get_outgoing())
-        print >> w, len(edge_list)
+        w.write(str(len(edge_list)))
 
         best_prop = 1
         while(best_prop > 0.05):
@@ -405,7 +405,9 @@ elif TYPE == 'OPT-EDGE':
                 edge_nodes = edge.split('->')
                 if hosts[edge_nodes[0]].get_edge_count() == 1 or hosts[edge_nodes[1]].get_edge_count() == 1:
                     continue
+                hosts[edge_nodes[0]].remove_outgoing(edge_nodes[1])
                 successes = 0
+                
                 for _ in range(EVALUATION_TRIALS):
                     start_time = time.time()
         
@@ -429,12 +431,15 @@ elif TYPE == 'OPT-EDGE':
                     best_prop = prop
                     best_edge = edge
 
+                hosts[edge_nodes[0]].add_outgoing(edge_nodes[1])
                 print 'Average execution time', total_time / float(EVALUATION_TRIALS)
                 print 'Proportion of vulnerable configurations: ', prop
             
             edge_nodes = best_edge.split('->')
             outgoing_host = hosts[edge_nodes[0]]
-            print >> w, ','.join([best_edge, str(best_prop), str(outgoing_host.get_edge_count()), outgoing_host.get_type()])
+            w.write(','.join([best_edge, str(best_prop), 
+                              str(outgoing_host.get_edge_count()), 
+                              outgoing_host.get_type()]))
             edge_list.remove(best_edge)
             outgoing_host.remove_outgoing(edge_nodes[1])
         
