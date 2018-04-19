@@ -30,6 +30,7 @@ if __name__ == '__main__':
             user_access_prob = parse_line(f.readline().strip('\r\n'))
             topology = f.readline().strip('\r\n').split(',')
             label = f.readline().strip('\r\n')
+            type = f.readline().strip('\r\n')
             
             if topology[0] == "ER" and topology[1] == "NO":
                     connectedness = [int(val) for val in connectedness]
@@ -44,4 +45,4 @@ if __name__ == '__main__':
                     for nap in [0.001*float(val) for val in network_access_prob]:
                         for root in root_access_prob:
                             for user in [0.001*float(uval) for uval in user_access_prob]:
-                                subprocess.call(['python', PLANNER_FILE, str(trials), str(count), str(connect), str(nap), str(root), str(user), topology, label, '&'])
+                                subprocess.call(['python', PLANNER_FILE, str(trials), str(count), str(connect), str(nap), str(root), str(user), topology, label, type, '&'])
