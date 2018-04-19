@@ -37,7 +37,7 @@ if len(sys.argv) < 7:
                     'USER': 0.03}
     TOPOLOGY = "GEN-1"
     MARKER = ""
-    TYPE = 'OPT'
+    TYPE = 'OPT-EDGE'
 else:
     EVALUATION_TRIALS = int(sys.argv[1])
     HOST_NUM = int(sys.argv[2])
@@ -239,7 +239,8 @@ def generate_domain():
     _predicates = set()
     _actions = set()
     
-    for line in domain_string:
+    for line in domain_string.getvalue().splitlines():
+        line = str(line)
         contents = line.split(':')
         if contents[0] == 'types':
             for item in contents[1].strip().split(','):
@@ -287,32 +288,32 @@ def generate_problem_instance():
     ##   predicates, where each predicate is a comma-separated list of the 
     ##   predicate name and its parameters.
     ###############################################################################
-    init = []
+    p_init = []
     
     file_host = random.choice([host.name for host in host_gen.get_hosts()])
-    init.append(','.join(['has_file', file_host, 'File']))
+    p_init.append(','.join(['has_file', file_host, 'File']))
     
     for host in host_gen.get_hosts():
         for neighbor in host.outgoing:
-            init.append(','.join(['connected', host.name, neighbor]))
+            p_init.append(','.join(['connected', host.name, neighbor]))
         for vuln in host.vulnerabilities:
-            init.append(','.join(['has_vulnerability', host.name, vuln.name]))
+            p_init.append(','.join(['has_vulnerability', host.name, vuln.name]))
         for access_level in host.access_levels:
             if access_level == "NETWORK":
-                init.append(','.join(['network_access', host.name]))
+                p_init.append(','.join(['network_access', host.name]))
             elif access_level == "ROOT":
-                init.append(','.join(['read_access', host.name]))
-                init.append(','.join(['compromised', host.name]))
+                p_init.append(','.join(['read_access', host.name]))
+                p_init.append(','.join(['compromised', host.name]))
             elif access_level == "USER":
-                init.append(','.join(['user_access', host.name]))
-                init.append(','.join(['read_access', host.name]))
-                init.append(','.join(['compromised', host.name]))
+                p_init.append(','.join(['user_access', host.name]))
+                p_init.append(','.join(['read_access', host.name]))
+                p_init.append(','.join(['compromised', host.name]))
     
-    print >> problem_string, 'init:' + ';'.join(init)
+    print >> problem_string, 'init:' + ';'.join(p_init)
     
-    goal = 'goal:' + ';'.join(map(','.join,[('accessed', 'File')]))
+    p_goal = 'goal:' + ';'.join(map(','.join,[('accessed', 'File')]))
     
-    print >> problem_string, goal
+    print >> problem_string, p_goal
     
     ################################################################################
     ## Aggregates the full problem for the attack planner
@@ -321,7 +322,8 @@ def generate_problem_instance():
     _goal = set()
     _init = set()
     
-    for line in problem_string:
+    for line in problem_string.getvalue().splitlines():
+        line = str(line)
         contents = line.split(':')
         if contents[0] == 'init':
             for item in contents[1].split(';'):
@@ -352,6 +354,7 @@ host_gen = HostGenerator(HOST_NUM, TOPOLOGY, CONNECTEDNESS, ACCESS_PROBS, PROFIL
 
 # Generate the Domain
 generate_domain()
+total_time = 0
 
 if TYPE == 'EVAL':
     for _ in range(EVALUATION_TRIALS):
@@ -381,7 +384,8 @@ if TYPE == 'EVAL':
                             str(USER_ACCESS_PROB)])
 
 # Optimization approach
-else:
+elif TYPE == 'OPT-EDGE':
+    hosts = host_gen.get_host_dict()
     with open(OUTPUT_FILE, 'a') as w:
         print >> w, ','.join([str(EVALUATION_TRIALS), str(HOST_NUM),
                               str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']),
@@ -389,7 +393,8 @@ else:
         
         edge_list = []
         for host in host_gen.get_hosts():
-            edge_list.extend(host.get_outgoing())
+            if host.type not in ['SERVER', 'GATEWAY']:
+                edge_list.extend(host.get_outgoing())
         print >> w, len(edge_list)
 
         best_prop = 1
@@ -397,6 +402,10 @@ else:
             best_edge = edge_list[0]
             best_prop = 1
             for edge in edge_list:
+                edge_nodes = edge.split('->')
+                if hosts[edge_nodes[0]].get_edge_count() == 1 or hosts[edge_nodes[1]].get_edge_count() == 1:
+                    continue
+                successes = 0
                 for _ in range(EVALUATION_TRIALS):
                     start_time = time.time()
         
@@ -422,7 +431,10 @@ else:
 
                 print 'Average execution time', total_time / float(EVALUATION_TRIALS)
                 print 'Proportion of vulnerable configurations: ', prop
-    
-            print >> w, ','.join([best_edge, str(best_prop)])
+            
+            edge_nodes = best_edge.split('->')
+            outgoing_host = hosts[edge_nodes[0]]
+            print >> w, ','.join([best_edge, str(best_prop), str(outgoing_host.get_edge_count()), outgoing_host.get_type()])
             edge_list.remove(best_edge)
+            outgoing_host.remove_outgoing(edge_nodes[1])
         

@@ -166,6 +166,9 @@ class Host(object):
     def remove_access_level(self, level):
         if level in self.access_levels:
             self.access_levels.remove(level)
+    
+    def remove_outgoing(self, other):
+        self.outgoing.remove(other)
 
     def get_type(self):
         return self.type
@@ -175,6 +178,9 @@ class Host(object):
 
     def get_outgoing(self):
         return [self.name + '->' + other for other in self.outgoing]
+
+    def get_edge_count(self):
+        return len(self.outgoing) + len(self.incoming)
 
     def get_access_levels(self):
         return self.access_levels
