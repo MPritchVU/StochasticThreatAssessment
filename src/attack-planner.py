@@ -29,15 +29,15 @@ DOMAIN_NAME = 'attack_planning'
 ACCESS_PROBS = {}
 
 if len(sys.argv) < 7:
-    EVALUATION_TRIALS = 25
-    HOST_NUM = 25
+    EVALUATION_TRIALS = 10
+    HOST_NUM = 100
     CONNECTEDNESS = 2.5
     ACCESS_PROBS = {'NETWORK': 0.01,
                     'ROOT': 0.0,
                     'USER': 0.03}
     TOPOLOGY = "GEN-1"
     MARKER = ""
-    TYPE = 'OPT-EDGE'
+    TYPE = 'OPT-VULN'
 else:
     EVALUATION_TRIALS = int(sys.argv[1])
     HOST_NUM = int(sys.argv[2])
@@ -104,7 +104,7 @@ def parse_profiles(profile_paths):
     PROFILES = []
     for path in profile_paths:
         report = parser.parse_report(path)
-        profile = VulnProfile(report, VulnDict())
+        profile = VulnProfile(report, VulnDict(), path.split(os.sep)[-1])
         profile.exclude_year(['2017', '2016', '2015'])
         profile.filter_zero_day()
         PROFILES.append(profile)
@@ -384,28 +384,24 @@ if TYPE == 'EVAL':
                             str(USER_ACCESS_PROB)])
 
 # Optimization approach
-elif TYPE == 'OPT-EDGE':
+elif TYPE == 'OPT-VULN':
     hosts = host_gen.get_host_dict()
     with open(OUTPUT_FILE, 'a') as w:
         w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
                           str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
                           str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])]))
         
-        edge_list = []
-        for host in host_gen.get_hosts():
-            if host.type not in ['SERVER', 'GATEWAY']:
-                edge_list.extend(host.get_outgoing())
-        w.write(str(len(edge_list)))
+    vuln_list = []
+    for profile in profile_list:
+        vuln_list.extend(profile.get_vulnerabilities())
+    with open(OUTPUT_FILE, 'a') as w:
+        w.write(str(len(vuln_list)))
 
-        best_prop = 1
-        while(best_prop > 0.05):
-            best_edge = edge_list[0]
-            best_prop = 1
-            for edge in edge_list:
-                edge_nodes = edge.split('->')
-                if hosts[edge_nodes[0]].get_edge_count() == 1 or hosts[edge_nodes[1]].get_edge_count() == 1:
-                    continue
-                hosts[edge_nodes[0]].remove_outgoing(edge_nodes[1])
+    best_prop = 1
+    while(best_prop > 0.05):
+        for profile in profile_list:
+            for vuln in profile.get_vulnerabilities():
+                profile.remove_vulnerability(vuln.name)
                 successes = 0
                 
                 for _ in range(EVALUATION_TRIALS):
@@ -424,22 +420,79 @@ elif TYPE == 'OPT-EDGE':
         
                     round_time = time.time() - start_time
                     total_time += round_time
-        
+    
                 prop = float(successes) / float(EVALUATION_TRIALS)
                 
                 if prop < best_prop:
+                    best_profile = profile
                     best_prop = prop
-                    best_edge = edge
+                    best_vuln = vuln
+                    
+                profile.add_vulnerability(vuln)
+        
+        with open(OUTPUT_FILE, 'a') as w:
+            w.write(','.join([best_vuln.name, str(best_prop)]))
+        best_profile.remove_vulnerability(best_vuln.name)
 
-                hosts[edge_nodes[0]].add_outgoing(edge_nodes[1])
-                print 'Average execution time', total_time / float(EVALUATION_TRIALS)
-                print 'Proportion of vulnerable configurations: ', prop
+
+else:
+    hosts = host_gen.get_host_dict()
+    with open(OUTPUT_FILE, 'a') as w:
+        w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
+                          str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
+                          str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])]))
+        
+    edge_list = []
+    for host in host_gen.get_hosts():
+        if host.type not in ['SERVER', 'GATEWAY']:
+            edge_list.extend(host.get_outgoing())
+    with open(OUTPUT_FILE, 'a') as w:
+        w.write(str(len(edge_list)))
+
+    best_prop = 1
+    while(best_prop > 0.05):
+        best_edge = edge_list[0]
+        best_prop = 1
+        for edge in edge_list:
+            edge_nodes = edge.split('->')
+            if hosts[edge_nodes[0]].get_edge_count() == 1 or hosts[edge_nodes[1]].get_edge_count() == 1:
+                continue
+            hosts[edge_nodes[0]].remove_outgoing(edge_nodes[1])
+            successes = 0
             
-            edge_nodes = best_edge.split('->')
-            outgoing_host = hosts[edge_nodes[0]]
+            for _ in range(EVALUATION_TRIALS):
+                start_time = time.time()
+    
+                # Generate the problem instance
+                host_gen.generate_vulnerabilities()
+                host_gen.generate_access_levels()
+                generate_problem_instance()
+    
+                subprocess.call(['python', FAST_DOWNWARD, '--translate', DOMAIN_FILE, PROBLEM_FILE])
+                subprocess.call(['python', FAST_DOWNWARD, 'output.sas', '--search', 'astar(lmcut())'])
+    
+                if os.path.exists(os.path.join(FILE_DIR, 'sas_plan')):
+                    successes += 1
+    
+                round_time = time.time() - start_time
+                total_time += round_time
+    
+            prop = float(successes) / float(EVALUATION_TRIALS)
+            
+            if prop < best_prop:
+                best_prop = prop
+                best_edge = edge
+
+            hosts[edge_nodes[0]].add_outgoing(edge_nodes[1])
+            print 'Average execution time', total_time / float(EVALUATION_TRIALS)
+            print 'Proportion of vulnerable configurations: ', prop
+        
+        edge_nodes = best_edge.split('->')
+        outgoing_host = hosts[edge_nodes[0]]
+        with open(OUTPUT_FILE, 'a') as w:
             w.write(','.join([best_edge, str(best_prop), 
                               str(outgoing_host.get_edge_count()), 
                               outgoing_host.get_type()]))
-            edge_list.remove(best_edge)
-            outgoing_host.remove_outgoing(edge_nodes[1])
+        edge_list.remove(best_edge)
+        outgoing_host.remove_outgoing(edge_nodes[1])
         

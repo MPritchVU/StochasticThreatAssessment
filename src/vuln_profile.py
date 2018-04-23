@@ -8,7 +8,8 @@ from vuln_dict import VulnDict, VulnEntry
 
 
 class VulnProfile(object):
-    def __init__(self, parsed_report, vd):
+    def __init__(self, parsed_report, vd, name):
+        self.name =  name
         self.vuln_list = []
         duplicate_list = []
         
@@ -32,6 +33,17 @@ class VulnProfile(object):
             probability = self.determine_probability(vuln)
             self.vuln_list.append(Vulnerability(name, min_av, req_auth, conf, probability, cwe, published_date))
         print("Vulnerability profile contains " + str(len(self.vuln_list)) + " vulnerabilities")
+
+    def get_vulnerabilities(self):
+        return [vuln.name for vuln in self.vuln_list]
+
+    def add_vulnerability(self, vuln):
+        self.vuln_list.append(vuln)
+
+    def remove_vulnerability(self, vuln_name):
+        for vuln in self.vuln_list:
+            if vuln.name == vuln_name:
+                self.vuln_list.remove(vuln)
 
     def determine_probability(self, vuln):
         prob = 1.0
