@@ -389,13 +389,13 @@ elif TYPE == 'OPT-VULN':
     with open(OUTPUT_FILE, 'a') as w:
         w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
                           str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
-                          str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])]))
+                          str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER']), os.linesep]))
         
     vuln_list = []
     for profile in profile_list:
         vuln_list.extend(profile.get_vulnerabilities())
     with open(OUTPUT_FILE, 'a') as w:
-        w.write(str(len(vuln_list)))
+        w.write(str(len(vuln_list)) + os.linesep)
 
     best_prop = 1
     while(best_prop > 0.05):
@@ -431,7 +431,7 @@ elif TYPE == 'OPT-VULN':
                 profile.add_vulnerability(vuln)
         
         with open(OUTPUT_FILE, 'a') as w:
-            w.write(','.join([best_vuln.name, str(best_prop)]))
+            w.write(','.join([best_vuln.name, str(best_prop), os.linesep]))
         best_profile.remove_vulnerability(best_vuln.name)
 
 
