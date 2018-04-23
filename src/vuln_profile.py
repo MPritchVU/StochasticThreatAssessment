@@ -35,7 +35,7 @@ class VulnProfile(object):
         print("Vulnerability profile contains " + str(len(self.vuln_list)) + " vulnerabilities")
 
     def get_vulnerabilities(self):
-        return [vuln.name for vuln in self.vuln_list]
+        return self.vuln_list
 
     def add_vulnerability(self, vuln):
         self.vuln_list.append(vuln)
