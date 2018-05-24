@@ -10,10 +10,12 @@ import random
 import sys
 import subprocess
 import time
+import copy
 
 from collections import defaultdict
 from itertools import combinations, permutations
 from StringIO import StringIO
+from multiprocessing import Pool
 
 from PDDL.PDDL_Formatter import *
 from host_generator import HostGenerator
@@ -29,8 +31,8 @@ DOMAIN_NAME = 'attack_planning'
 ACCESS_PROBS = {}
 
 if len(sys.argv) < 7:
-    EVALUATION_TRIALS = 10
-    HOST_NUM = 100
+    EVALUATION_TRIALS = 2
+    HOST_NUM = 25
     CONNECTEDNESS = 2.5
     ACCESS_PROBS = {'NETWORK': 0.01,
                     'ROOT': 0.0,
@@ -52,7 +54,7 @@ else:
 FILE_DIR = os.path.abspath(os.path.dirname(__file__))
 FAST_DOWNWARD = os.path.join(FILE_DIR, '..', 'fast_downward', 'fast-downward.py')
 DOMAIN_FILE = os.path.join(FILE_DIR, 'PDDL', 'data', 'domain.pddl')
-PROBLEM_FILE = os.path.join(FILE_DIR, 'PDDL', 'data', 'problem.pddl')
+PROBLEM_PATH = os.path.join(FILE_DIR, 'PDDL', 'data')
 OUTPUT_FILE = os.path.join(FILE_DIR, 'output' + MARKER + '.csv')
 
 WIN_DESK_PATH = os.path.join(FILE_DIR, '..', 'profiles', 'Win7_2014_min.csv')
@@ -278,7 +280,7 @@ def generate_domain():
     with open(DOMAIN_FILE, 'w') as f:
         print >> f, define_
 
-def generate_problem_instance():
+def generate_problem_instance(host_gen, problem_file):
     problem_string = StringIO()
 
     ###############################################################################
@@ -338,161 +340,159 @@ def generate_problem_instance():
     goal_ = goal(*(predicate(*goal) for goal in _goal), subindentation_level=2)
     define_ = define(problem_, domain_, init_, goal_)
     
-    print 'Generating aggregated problem:', PROBLEM_FILE
-    with open(PROBLEM_FILE, 'w') as p:
+    print 'Generating aggregated problem:', problem_file
+    with open(problem_file, 'w') as p:
         print >> p, define_
 
+def run_evaluation_instance(args):
+    host_gen = args[0]
+    flag = args[1]
+    problem_file = os.path.join(PROBLEM_PATH, ''.join(['problem', str(flag), '.pddl']))
+    
+    # Generate the problem instance
+    host_gen.generate_vulnerabilities()
+    host_gen.generate_access_levels()
+    generate_problem_instance(host_gen, problem_file)
+    
+    instance_dir = os.path.join(FILE_DIR, str(flag))
+    
+    if not os.path.exists(instance_dir):
+        os.makedirs(instance_dir)
+
+    return subprocess.call(['python', FAST_DOWNWARD, DOMAIN_FILE, problem_file, '--search', 'astar(lmcut())'], cwd=instance_dir)
+
+
 # Generate vulnerability PROFILES
-profile_list = parse_profiles([WIN_DESK_PATH, LIN_DESK_PATH, WIN_SERV_PATH, LIN_SERV_PATH])
-PROFILES = {'GENERIC': [(0.7048, profile_list[0]), (0.2952, profile_list[1])],
-            'SINGLETON': [(0.7048, profile_list[0]), (0.2952, profile_list[1])],
-            'SERVER': [(0.336, profile_list[2]), (0.664, profile_list[3])],
-            'GATEWAY': [(0.336, profile_list[2]), (0.664, profile_list[3])]}
 
-# Run the host generator to initialize the topology and initial instance
-host_gen = HostGenerator(HOST_NUM, TOPOLOGY, CONNECTEDNESS, ACCESS_PROBS, PROFILES)
-
-# Generate the Domain
-generate_domain()
-total_time = 0
-
-if TYPE == 'EVAL':
-    for _ in range(EVALUATION_TRIALS):
-        start_time = time.time()
-
-        # Generate the problem instance
-        host_gen = HostGenerator(HOST_NUM, TOPOLOGY, CONNECTEDNESS, ACCESS_PROBS, PROFILES)
-        generate_problem_instance()
-
-        subprocess.call(['python', FAST_DOWNWARD, '--translate', DOMAIN_FILE, PROBLEM_FILE])
-        subprocess.call(['python', FAST_DOWNWARD, 'output.sas', '--search', 'astar(lmcut())'])
+if __name__ == '__main__':
+    profile_list = parse_profiles([WIN_DESK_PATH, LIN_DESK_PATH, WIN_SERV_PATH, LIN_SERV_PATH])
+    PROFILES = {'GENERIC': [(0.7048, profile_list[0]), (0.2952, profile_list[1])],
+                'SINGLETON': [(0.7048, profile_list[0]), (0.2952, profile_list[1])],
+                'SERVER': [(0.336, profile_list[2]), (0.664, profile_list[3])],
+                'GATEWAY': [(0.336, profile_list[2]), (0.664, profile_list[3])]}
     
-        if os.path.exists(os.path.join(FILE_DIR, 'sas_plan')):
-            successes += 1
+    # Run the host generator to initialize the topology and initial instance
+    host_gen = HostGenerator(HOST_NUM, TOPOLOGY, CONNECTEDNESS, ACCESS_PROBS, PROFILES)
+    
+    # Generate the Domain
+    generate_domain()
+    total_time = 0
+    
+    if TYPE == 'EVAL':
+        for _ in range(EVALUATION_TRIALS):
+            start_time = time.time()
+    
+            # Generate the problem instance
+            host_gen = HostGenerator(HOST_NUM, TOPOLOGY, CONNECTEDNESS, ACCESS_PROBS, PROFILES)
+            generate_problem_instance()
+    
+            subprocess.call(['python', FAST_DOWNWARD, '--translate', DOMAIN_FILE, PROBLEM_FILE])
+            subprocess.call(['python', FAST_DOWNWARD, 'output.sas', '--search', 'astar(lmcut())'])
         
-        round_time = time.time() - start_time
-        total_time += round_time
-
-        print 'Time taken:', round_time
+            if os.path.exists(os.path.join(FILE_DIR, 'sas_plan')):
+                successes += 1
+            
+            round_time = time.time() - start_time
+            total_time += round_time
     
-    print 'Average execution time', total_time / float(EVALUATION_TRIALS)
-    print 'Number of vulnerable configurations: ', successes
-    
-    with open(OUTPUT_FILE, 'a') as w:
-        print >> w, ','.join([str(EVALUATION_TRIALS), str(successes), str(total_time / float(EVALUATION_TRIALS)), str(HOST_NUM), 
-                            str(CONNECTEDNESS), str(NETWORK_ACCESS_PROB), str(ROOT_ACCESS_PROB), 
-                            str(USER_ACCESS_PROB)])
-
-# Optimization approach
-elif TYPE == 'OPT-VULN':
-    hosts = host_gen.get_host_dict()
-    with open(OUTPUT_FILE, 'a') as w:
-        w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
-                          str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
-                          str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER']), os.linesep]))
+            print 'Time taken:', round_time
         
-    vuln_list = []
-    for profile in profile_list:
-        vuln_list.extend(profile.get_vulnerabilities())
-    with open(OUTPUT_FILE, 'a') as w:
-        w.write(str(len(vuln_list)) + os.linesep)
-
-    best_prop = 1
-    while(best_prop > 0.05):
+        print 'Average execution time', total_time / float(EVALUATION_TRIALS)
+        print 'Number of vulnerable configurations: ', successes
+        
+        with open(OUTPUT_FILE, 'a') as w:
+            print >> w, ','.join([str(EVALUATION_TRIALS), str(successes), str(total_time / float(EVALUATION_TRIALS)), str(HOST_NUM), 
+                                str(CONNECTEDNESS), str(NETWORK_ACCESS_PROB), str(ROOT_ACCESS_PROB), 
+                                str(USER_ACCESS_PROB)])
+    
+    # Optimization approach
+    elif TYPE == 'OPT-VULN':
+        pool = Pool(processes=None)
+        hosts = host_gen.get_host_dict()
+        with open(OUTPUT_FILE, 'a') as w:
+            w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
+                              str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
+                              str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER']), os.linesep]))
+            
+        vuln_list = []
         for profile in profile_list:
-            for vuln in profile.get_vulnerabilities():
-                profile.remove_vulnerability(vuln.name)
+            vuln_list.extend(profile.get_vulnerabilities())
+        with open(OUTPUT_FILE, 'a') as w:
+            w.write(str(len(vuln_list)) + os.linesep)
+    
+        best_prop = 1
+        while(best_prop > 0.05):
+            for profile in profile_list:
+                for vuln in profile.get_vulnerabilities():
+                    profile.remove_vulnerability(vuln.name)
+                    successes = 0
+                    
+                    pool_args = [(copy.deepcopy(host_gen), val) for val in range(EVALUATION_TRIALS)]
+                    for val in pool.imap_unordered(run_evaluation_instance, pool_args):
+                        if val == 0:
+                            successes += 1
+    
+                    prop = float(successes) / float(EVALUATION_TRIALS)
+                    
+                    if prop < best_prop:
+                        best_profile = profile
+                        best_prop = prop
+                        best_vuln = vuln
+                        
+                    profile.add_vulnerability(vuln)
+            
+            with open(OUTPUT_FILE, 'a') as w:
+                w.write(','.join([best_vuln.name, str(best_prop), os.linesep]))
+            best_profile.remove_vulnerability(best_vuln.name)
+            host_gen.assign_profiles(PROFILES)
+    
+    
+    else:
+        hosts = host_gen.get_host_dict()
+        with open(OUTPUT_FILE, 'a') as w:
+            w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
+                              str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
+                              str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])]))
+            
+        edge_list = []
+        for host in host_gen.get_hosts():
+            if host.type not in ['SERVER', 'GATEWAY']:
+                edge_list.extend(host.get_outgoing())
+        with open(OUTPUT_FILE, 'a') as w:
+            w.write(str(len(edge_list)))
+    
+        best_prop = 1
+        while(best_prop > 0.05):
+            best_edge = edge_list[0]
+            best_prop = 1
+            for edge in edge_list:
+                edge_nodes = edge.split('->')
+                if hosts[edge_nodes[0]].get_edge_count() == 1 or hosts[edge_nodes[1]].get_edge_count() == 1:
+                    continue
+                hosts[edge_nodes[0]].remove_outgoing(edge_nodes[1])
                 successes = 0
                 
-                for _ in range(EVALUATION_TRIALS):
-                    start_time = time.time()
-        
-                    # Generate the problem instance
-                    host_gen.generate_vulnerabilities()
-                    host_gen.generate_access_levels()
-                    generate_problem_instance()
-        
-                    subprocess.call(['python', FAST_DOWNWARD, '--translate', DOMAIN_FILE, PROBLEM_FILE])
-                    subprocess.call(['python', FAST_DOWNWARD, 'output.sas', '--search', 'astar(lmcut())'])
-        
-                    if os.path.exists(os.path.join(FILE_DIR, 'sas_plan')):
+                pool_args = [(copy.deepcopy(host_gen), val) for val in range(EVALUATION_TRIALS)]
+                for val in pool.imap_unordered(run_evaluation_instance, pool_args):
+                    if val == 0:
                         successes += 1
-        
-                    round_time = time.time() - start_time
-                    total_time += round_time
-    
+
                 prop = float(successes) / float(EVALUATION_TRIALS)
                 
                 if prop < best_prop:
-                    best_profile = profile
                     best_prop = prop
-                    best_vuln = vuln
-                    
-                profile.add_vulnerability(vuln)
-        
-        with open(OUTPUT_FILE, 'a') as w:
-            w.write(','.join([best_vuln.name, str(best_prop), os.linesep]))
-        best_profile.remove_vulnerability(best_vuln.name)
-
-
-else:
-    hosts = host_gen.get_host_dict()
-    with open(OUTPUT_FILE, 'a') as w:
-        w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
-                          str(CONNECTEDNESS), str(ACCESS_PROBS['NETWORK']), 
-                          str(ACCESS_PROBS['ROOT']), str(ACCESS_PROBS['USER'])]))
-        
-    edge_list = []
-    for host in host_gen.get_hosts():
-        if host.type not in ['SERVER', 'GATEWAY']:
-            edge_list.extend(host.get_outgoing())
-    with open(OUTPUT_FILE, 'a') as w:
-        w.write(str(len(edge_list)))
-
-    best_prop = 1
-    while(best_prop > 0.05):
-        best_edge = edge_list[0]
-        best_prop = 1
-        for edge in edge_list:
-            edge_nodes = edge.split('->')
-            if hosts[edge_nodes[0]].get_edge_count() == 1 or hosts[edge_nodes[1]].get_edge_count() == 1:
-                continue
-            hosts[edge_nodes[0]].remove_outgoing(edge_nodes[1])
-            successes = 0
+                    best_edge = edge
+    
+                hosts[edge_nodes[0]].add_outgoing(edge_nodes[1])
+                print 'Proportion of vulnerable configurations: ', prop
             
-            for _ in range(EVALUATION_TRIALS):
-                start_time = time.time()
-    
-                # Generate the problem instance
-                host_gen.generate_vulnerabilities()
-                host_gen.generate_access_levels()
-                generate_problem_instance()
-    
-                subprocess.call(['python', FAST_DOWNWARD, '--translate', DOMAIN_FILE, PROBLEM_FILE])
-                subprocess.call(['python', FAST_DOWNWARD, 'output.sas', '--search', 'astar(lmcut())'])
-    
-                if os.path.exists(os.path.join(FILE_DIR, 'sas_plan')):
-                    successes += 1
-    
-                round_time = time.time() - start_time
-                total_time += round_time
-    
-            prop = float(successes) / float(EVALUATION_TRIALS)
-            
-            if prop < best_prop:
-                best_prop = prop
-                best_edge = edge
+            edge_nodes = best_edge.split('->')
+            outgoing_host = hosts[edge_nodes[0]]
 
-            hosts[edge_nodes[0]].add_outgoing(edge_nodes[1])
-            print 'Average execution time', total_time / float(EVALUATION_TRIALS)
-            print 'Proportion of vulnerable configurations: ', prop
-        
-        edge_nodes = best_edge.split('->')
-        outgoing_host = hosts[edge_nodes[0]]
-        with open(OUTPUT_FILE, 'a') as w:
-            w.write(','.join([best_edge, str(best_prop), 
-                              str(outgoing_host.get_edge_count()), 
-                              outgoing_host.get_type()]))
-        edge_list.remove(best_edge)
-        outgoing_host.remove_outgoing(edge_nodes[1])
+            with open(OUTPUT_FILE, 'a') as w:
+                w.write(','.join([best_edge, str(best_prop), 
+                                  str(outgoing_host.get_edge_count()), 
+                                  outgoing_host.get_type()]))
+            edge_list.remove(best_edge)
+            outgoing_host.remove_outgoing(edge_nodes[1])
         
