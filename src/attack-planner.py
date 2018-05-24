@@ -448,6 +448,7 @@ if __name__ == '__main__':
     
     
     else:
+        pool = Pool(processes=None)
         hosts = host_gen.get_host_dict()
         with open(OUTPUT_FILE, 'a') as w:
             w.write(','.join([str(EVALUATION_TRIALS), str(HOST_NUM), 
